@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <p><a href="index.html">Atrás</a></p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de Lista en Tiempo Real</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #buscador { padding: 10px; width: 300px; margin-bottom: 15px; }
+        #listaElementos { list-style-type: none; padding: 0; }
+        #listaElementos li { padding: 8px; border-bottom: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <h2>Escriba cual es el dispositivo <br> electronico que necesita</h2>
+    <input type="text" id="buscador" placeholder="Escribe para filtrar...">
+    
+    <ul id="listaElementos">
+        <li>Ordenador de escritorio</li>
+        <li>Ordenador portátil</li>
+        <li>Teléfono Móvil</li>
+        <li>Tablet</li>
+        <li>Smartwatch</li>
+        <li>Realidad Virtual</li>
+    </ul>
+
+    <script>
+        const buscador = document.getElementById('buscador');
+        const lista = document.getElementById('listaElementos');
+        const elementos = lista.getElementsByTagName('li');
+
+        buscador.addEventListener('keyup', () => {
+            const filtro = buscador.value.toLowerCase();
+
+            for (let i = 0; i < elementos.length; i++) {
+                let texto = elementos[i].textContent || elementos[i].innerText;
+                if (texto.toLowerCase().indexOf(filtro) > -1) {
+                    elementos[i].style.display = "";
+                } else {
+                    elementos[i].style.display = "none";
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <p><a href="index.html">Atrás</a></p>
+    <title>Cambiar Color</title>
+    <style>
+        body { text-align: center; padding-top: 50px; transition: background-color 0.5s; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <button id="cambiar_color">Cambiar color</button>
+
+    <script>
+        // Obtener el botón por su id
+        const boton = document.querySelector("#cambiar_color");
+
+        // Función para generar colores aleatorios
+        function generarColorAleatorio() {
+            return Math.floor(Math.random() * 256);
+        }
+
+        // Añadir evento al hacer clic
+        boton.addEventListener("click", () => {
+            const r = generarColorAleatorio();
+            const g = generarColorAleatorio();
+            const b = generarColorAleatorio();
+            document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        });
+    </script>
+</body>
+</html>
+

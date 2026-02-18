@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <p><a href="index.html">Atrás</a></p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador/Cronómetro</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        #display {
+            font-size: 48px;
+            font-weight: bold;
+            font-family: monospace;
+            margin-bottom: 20px;
+            color: #333;
+            background: #e9ecef;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            color: white;
+        }
+
+        #start { background-color: #9a28a7; }
+        #start:hover { background-color: #9a28a7; }
+
+        #pause { background-color: #07ff17; color: #333; }
+        #pause:hover { background-color: #07ff17; }
+
+        #reset { background-color: #3b35dc; }
+        #reset:hover { background-color:  #3b35dc; }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="display">00:00:00</div>
+        <div class="buttons">
+            <button id="start" onclick="startTimer()">Iniciar</button>
+            <button id="pause" onclick="pauseTimer()" disabled>Pausar</button>
+            <button id="reset" onclick="resetTimer()">Reiniciar</button>
+        </div>
+    </div>
+
+    <script>
+        let startTime;
+        let elapsedTime = 0;
+        let timerInterval;
+        let isRunning = false;
+
+        const display = document.getElementById('display');
+        const startBtn = document.getElementById('start');
+        const pauseBtn = document.getElementById('pause');
+
+        function formatTime(ms) {
+            let totalSeconds = Math.floor(ms / 1000);
+            let hours = Math.floor(totalSeconds / 3600);
+            let minutes = Math.floor((totalSeconds % 3600) / 60);
+            let seconds = totalSeconds % 60;
+
+            return (
+                (hours < 10 ? "0" + hours : hours) + ":" +
+                (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                (seconds < 10 ? "0" + seconds : seconds)
+            );
+        }
+
+        function updateDisplay() {
+            const now = Date.now();
+            const diff = now - startTime + elapsedTime;
+            display.textContent = formatTime(diff);
+            return diff; // Retorna el tiempo actual por si acaso
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                startTime = Date.now();
+                timerInterval = setInterval(updateDisplay, 1000);
+                isRunning = true;
+                startBtn.disabled = true;
+                pauseBtn.disabled = false;
+            }
+        }
+
+        function pauseTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                elapsedTime += Date.now() - startTime;
+                isRunning = false;
+                startBtn.disabled = false;
+                pauseBtn.disabled = true;
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            elapsedTime = 0;
+            display.textContent = "00:00:00";
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+        }
+    </script>
+
+</body>
+</html>

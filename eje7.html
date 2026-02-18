@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <p><a href="index.html">Atrás</a></p>
+    
+    <title>Generador de Contraseñas Seguras</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f4f4f9; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 350px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #resultado { margin-top: 15px; font-weight: bold; word-break: break-all; text-align: center; min-height: 1.2em; }
+        .error { color: #dc3545; }
+        .exito { color: #28a745; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h3>🔐 Generador de Password</h3>
+    <label for="longitud">Longitud de la contraseña:</label>
+    <input type="number" id="longitud" placeholder="Ej: 12" min="4">
+    <button onclick="generarPassword()">Generar contraseña</button>
+    <div id="resultado"></div>
+</div>
+
+<script>
+function generarPassword() {
+    const input = document.getElementById('longitud');
+    const display = document.getElementById('resultado');
+    const valor = input.value;
+    
+    // Validación: menor a 4 o vacío
+    if (!valor || parseInt(valor) < 4) {
+        display.innerHTML = '<span class="error">❌ La longitud debe ser mayor o igual a 4</span>';
+        return;
+    }
+
+    const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?";
+    let password = "";
+    const longitud = parseInt(valor);
+
+    for (let i = 0; i < longitud; i++) {
+        const randomIndex = Math.floor(Math.random() * caracteres.length);
+        password += caracteres.charAt(randomIndex);
+    }
+
+    display.innerHTML = `<span class="exito">Tu contraseña:</span><br>${password}`;
+}
+</script>
+
+</body>
+</html>

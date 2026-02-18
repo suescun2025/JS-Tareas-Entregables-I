@@ -1,0 +1,4 @@
+.app-container { max-width: 400px; margin: 20px auto; text-align: center; }
+ul { list-style-type: none; padding: 0; }
+li { display: flex; align-items: center; justify-content: space-between; padding: 5px; }
+.completed { text-decoration: line-through; color: gray; }

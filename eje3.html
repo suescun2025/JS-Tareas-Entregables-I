@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <p><a href="index.html">Atrás</a></p>
+    <title>Lista Dinámica</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f4f4f4; margin: 5px 0; padding: 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; }
+        button.delete-btn { background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Mi Lista Dinámica</h2>
+    <input type="text" id="itemInput" placeholder="Escribe un elemento...">
+    <button onclick="agregarElemento()">Agregar</button>
+
+    <ul id="listaElementos"></ul>
+
+    <script>
+        function agregarElemento() {
+            const input = document.getElementById('itemInput');
+            const texto = input.value;
+            if (texto === '') return; // No agregar si está vacío
+
+            const lista = document.getElementById('listaElementos');
+            const li = document.createElement('li');
+            li.textContent = texto;
+
+            // Botón eliminar
+            const btnEliminar = document.createElement('button');
+            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.className = 'delete-btn';
+            btnEliminar.onclick = function() {
+                lista.removeChild(li);
+            };
+
+            li.appendChild(btnEliminar);
+            lista.appendChild(li);
+            input.value = ''; // Limpiar campo
+        }
+    </script>
+</body>
+</html>

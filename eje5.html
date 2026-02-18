@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <p><a href="index.html">Atrás</a></p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Básica</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .calc-container { max-width: 300px; margin: auto; border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
+        input { width: 100%; margin-bottom: 10px; padding: 8px; box-sizing: border-box; }
+        .buttons { display: flex; gap: 10px; justify-content: space-between; margin-bottom: 10px; }
+        button { flex: 1; padding: 10px; cursor: pointer; }
+        #resultado { font-weight: bold; text-align: center; margin-top: 10px; padding: 10px; border: 1px solid #eee; min-height: 20px; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+<div class="calc-container">
+    <h3>Calculadora</h3>
+    <input type="number" id="num1" placeholder="Número 1" required>
+    <input type="number" id="num2" placeholder="Número 2" required>
+    
+    <div class="buttons">
+        <button onclick="calcular('sumar')">+</button>
+        <button onclick="calcular('restar')">-</button>
+        <button onclick="calcular('multiplicar')">×</button>
+        <button onclick="calcular('dividir')">÷</button>
+    </div>
+
+    <div id="resultado">Resultado</div>
+</div>
+
+<script>
+    function calcular(operacion) {
+        const n1 = document.getElementById('num1').value;
+        const n2 = document.getElementById('num2').value;
+        const resultadoDiv = document.getElementById('resultado');
+        
+        // Validación de entradas vacías
+        if (n1 === '' || n2 === '') {
+            resultadoDiv.innerHTML = '<span class="error">Ingrese ambos números</span>';
+            return;
+        }
+
+        const num1 = parseFloat(n1);
+        const num2 = parseFloat(n2);
+        let resultado;
+
+        switch (operacion) {
+            case 'sumar':
+                resultado = num1 + num2;
+                break;
+            case 'restar':
+                resultado = num1 - num2;
+                break;
+            case 'multiplicar':
+                resultado = num1 * num2;
+                break;
+            case 'dividir':
+                // Validación de división por cero
+                if (num2 === 0) {
+                    resultadoDiv.innerHTML = '<span class="error">Error: Div por 0</span>';
+                    return;
+                }
+                resultado = num1 / num2;
+                break;
+        }
+        
+        resultadoDiv.innerText = `Resultado: ${resultado}`;
+    }
+</script>
+
+</body>
+</html>
